@@ -9,7 +9,7 @@ public class App {
         Scanner sc = new Scanner(System.in);
         int[] resultArr = new int[10];
         // 현재 인덱스 값을 저장할 변수
-        int curIdx = 0;
+        int idxCnt = 0;
         // 마지막 인덱스 값을 저장할 변수
         int lastIdx = 0;
 
@@ -32,28 +32,22 @@ public class App {
                 case '+':
                     result = num1 + num2;
                     System.out.println("결과 : " + result);
-                    // 정상적으로 결과값이 출력 된 경우 결과값 배열에 저장
-                    resultArr[curIdx] = result;
-                    // 현재 idx 값이 마지막 결과 idx에 저장하고, 현재 idx 값이 1 증가
-                    lastIdx = curIdx++;
+                    // idx 카운트 값이 1 증가
+                    idxCnt++;
                     break;
 
                 case '-':
                     result = num1 - num2;
                     System.out.println("결과 : " + result);
-                    // 정상적으로 결과값이 출력 된 경우 결과값 배열에 저장
-                    resultArr[curIdx] = result;
-                    // 현재 idx 값이 마지막 결과 idx에 저장하고, 현재 idx 값이 1 증가
-                    lastIdx = curIdx++;
+                    // idx 카운트 값이 1 증가
+                    idxCnt++;
                     break;
 
                 case '*':
                     result = num1 * num2;
                     System.out.println("결과 : " + result);
-                    // 정상적으로 결과값이 출력 된 경우 결과값 배열에 저장
-                    resultArr[curIdx] = result;
-                    // 현재 idx 값이 마지막 결과 idx에 저장하고, 현재 idx 값이 1 증가
-                    lastIdx = curIdx++;
+                    // idx 카운트 값이 1 증가
+                    idxCnt++;
                     break;
 
                 case '/':
@@ -62,11 +56,8 @@ public class App {
                         System.out.println("나눗셈 연산에선 분모(두 번째 정수)에는 0이 입력될 수 없습니다.");
                     else {
                         result = num1 / num2;
-                        System.out.println("결과 : " + result);
-                        // 정상적으로 결과값이 출력 된 경우 결과값 배열에 저장
-                        resultArr[curIdx] = result;
-                        // 현재 idx 값이 마지막 결과 idx에 저장하고, 현재 idx 값이 1 증가
-                        lastIdx = curIdx++;
+                        // idx 카운트 값이 1 증가
+                        idxCnt++;
                     }
                     break;
 
@@ -74,6 +65,29 @@ public class App {
                     // 사칙연산(+, -, *, / 를 제외한 다른 문자가 입력되면 실행
                     System.out.println("사칙연산 기호가 아닙니다.");
             }
+
+            // 정상 결과 출력 로직, 정상적으로 결과값이 발생한 경우 idxCnt와 lastIdx값이 달라짐
+            if(idxCnt != lastIdx){
+                // 컴퓨터는 0부터 시작이므로 idx = Cnt - 1;
+                // count가 10개(idx 기준 9) 부터는 마지막 인덱스가 9로 고정이므로
+                // 10이 넘어가면 lastIdx는 9로 고정시키고 그 전까지는 +1씩 해준다.
+                if(idxCnt <= 10)
+                    lastIdx = idxCnt - 1;
+                else{ // idxCnt 즉, 결과값이 11개부터는 배열 밀어내기 시작
+                    for(int i = 0 ; i < 9; i ++){ // 배열에서 한 칸 뒤에 있는 값을 앞으로 당기기
+                        resultArr[i] = resultArr[i+1];
+                    }
+                }
+
+                // 현재 결과를 배열 마지막에 저장
+                resultArr[lastIdx] = result;
+
+                // 배열 저장 확인
+                for(int i = 0; i < resultArr.length ; i++)
+                    System.out.print(resultArr[i] + " ");
+            }
+
+            System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
 
             // 다음 입력 받은 값이 "exit"이면 반복문 나가기.
             if (sc.next().equals("exit"))
