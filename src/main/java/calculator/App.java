@@ -89,13 +89,18 @@ public class App {
             // "remove" 입력 시 가장 먼저 등록된 데이터가 사라지고 한 칸씩 앞으로 당김
             if(sc.next().equals("remove"))
                 resultArr.remove(0);
-            /*
-            // 배열 저장 확인
-            for(int i = 0; i < resultArr.size() ; i++)
-                System.out.print(resultArr.get(i) + " ");
 
-            System.out.print("\n"); // 배열 저장 확인 후 개행문자 지우기
-            */
+            System.out.println("저장된 연산결과를 조회하시겠습니까? (inquiry 입력 시 조회)");
+
+            // "inquiry" 입력 시 모든 데이터 조회
+            if(sc.next().equals("inquiry")) {
+                // 한 줄로 데이터 조회
+                for(int i : resultArr)
+                    System.out.print(i + " ");
+
+                System.out.print("\n"); // 데이터 조회 후 줄바꿈
+            }
+
             System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
 
             // 다음 입력 받은 값이 "exit"이면 반복문 나가기.
