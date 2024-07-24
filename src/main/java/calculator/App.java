@@ -1,5 +1,6 @@
 package calculator;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
@@ -7,12 +8,16 @@ public class App {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        int[] resultArr = new int[10];
-        // 현재 인덱스 값을 저장할 변수
-        int idxCnt = 0;
-        // 마지막 인덱스 값을 저장할 변수
-        int lastIdx = 0;
 
+        // 가변길이 배열 선언
+        // List는 저장되는 순서를 반영하므로 채택
+        ArrayList<Integer> resultArr = new ArrayList<>();
+
+        // 결과값이 정상적으로 나왔는지 체크하기 위한 변수
+        // chk값이 true인 경우에만 List에 값을 저장하기 위해 false로 초기화
+        boolean chk = false;
+
+        // 마지막에 "exit"를 쓰기전까지 무한루프
         while(true) {
 
             int result = 0;
@@ -28,26 +33,30 @@ public class App {
             System.out.print("사칙연산 기호를 입력하세요: ");
             char operator = sc.next().charAt(0);
 
+            // 입력되는 사칙연산 기호 분기
             switch (operator) {
                 case '+':
+                    chk = true; // 성공적인 결과 출력
                     result = num1 + num2;
+
                     System.out.println("결과 : " + result);
-                    // idx 카운트 값이 1 증가
-                    idxCnt++;
+
                     break;
 
                 case '-':
+                    chk = true; // 성공적인 결과 출력
                     result = num1 - num2;
+
                     System.out.println("결과 : " + result);
-                    // idx 카운트 값이 1 증가
-                    idxCnt++;
+
                     break;
 
                 case '*':
+                    chk = true; // 성공적인 결과 출력
                     result = num1 * num2;
+
                     System.out.println("결과 : " + result);
-                    // idx 카운트 값이 1 증가
-                    idxCnt++;
+
                     break;
 
                 case '/':
@@ -55,9 +64,10 @@ public class App {
                     if (num2 == 0)
                         System.out.println("나눗셈 연산에선 분모(두 번째 정수)에는 0이 입력될 수 없습니다.");
                     else {
+                        chk = true; // 성공적인 결과 출력
                         result = num1 / num2;
-                        // idx 카운트 값이 1 증가
-                        idxCnt++;
+
+                        System.out.println("결과 : " + result);
                     }
                     break;
 
@@ -66,34 +76,31 @@ public class App {
                     System.out.println("사칙연산 기호가 아닙니다.");
             }
 
-            // 정상 결과 출력 로직, 정상적으로 결과값이 발생한 경우 idxCnt와 lastIdx값이 달라짐
-            if(idxCnt != lastIdx){
-                // 컴퓨터는 0부터 시작이므로 idx = Cnt - 1;
-                // count가 10개(idx 기준 9) 부터는 마지막 인덱스가 9로 고정이므로
-                // 10이 넘어가면 lastIdx는 9로 고정시키고 그 전까지는 +1씩 해준다.
-                if(idxCnt <= 10)
-                    lastIdx = idxCnt - 1;
-                else{ // idxCnt 즉, 결과값이 11개부터는 배열 밀어내기 시작
-                    for(int i = 0 ; i < 9; i ++){ // 배열에서 한 칸 뒤에 있는 값을 앞으로 당기기
-                        resultArr[i] = resultArr[i+1];
-                    }
-                }
-
-                // 현재 결과를 배열 마지막에 저장
-                resultArr[lastIdx] = result;
-
-                // 배열 저장 확인
-                for(int i = 0; i < resultArr.length ; i++)
-                    System.out.print(resultArr[i] + " ");
+            // chk 값이 true 인 경우에만 List에 저장
+            if(chk){
+                // chk값이 true인 경우에만 List에 값을 저장하기 위해 false로 초기화
+                chk = false;
+                // 현재 결과를 List에 저장
+                resultArr.add(result);
             }
 
+            System.out.println("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력 시 삭제)");
+
+            // "remove" 입력 시 가장 먼저 등록된 데이터가 사라지고 한 칸씩 앞으로 당김
+            if(sc.next().equals("remove"))
+                resultArr.remove(0);
+            /*
+            // 배열 저장 확인
+            for(int i = 0; i < resultArr.size() ; i++)
+                System.out.print(resultArr.get(i) + " ");
+
+            System.out.print("\n"); // 배열 저장 확인 후 개행문자 지우기
+            */
             System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
 
             // 다음 입력 받은 값이 "exit"이면 반복문 나가기.
             if (sc.next().equals("exit"))
                 break;
-
-
         }
     }
 }
