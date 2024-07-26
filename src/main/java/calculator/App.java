@@ -29,24 +29,16 @@ public class App extends Exception{
             }
 
             System.out.println("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력 시 삭제)");
-
             // "remove" 입력 시 가장 먼저 등록된 데이터가 사라지고 한 칸씩 앞으로 당김
             if(sc.next().equals("remove"))
                 calculator.removeResult();
 
             System.out.println("저장된 연산결과를 조회하시겠습니까? (inquiry 입력 시 조회)");
-
             // "inquiry" 입력 시 모든 데이터 조회
-            if(sc.next().equals("inquiry")) {
-                // 한 줄로 데이터 조회
-                for(double i : calculator.getResult())
-                    System.out.print(i + " ");
-
-                System.out.print("\n"); // 데이터 조회 후 줄바꿈
-            }
+            if(sc.next().equals("inquiry"))
+                calculator.inquiryResults();
 
             System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
-
             // 다음 입력 받은 값이 "exit"이면 반복문 나가기.
             if (sc.next().equals("exit"))
                 break;

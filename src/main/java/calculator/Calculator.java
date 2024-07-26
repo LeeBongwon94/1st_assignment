@@ -26,6 +26,13 @@ public class Calculator{
         resultArr.remove(0);
     }
 
+    public void inquiryResults(){
+        for(double i : resultArr)
+            System.out.print(i + " ");
+
+        System.out.print("\n"); // 데이터 조회 후 줄바꿈
+    }
+
     public double calculate(int num1, int num2, char operator) throws Exception {
         switch (operator) {
             case '+':
