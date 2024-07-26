@@ -32,7 +32,7 @@ public class App extends Exception{
 
             // "remove" 입력 시 가장 먼저 등록된 데이터가 사라지고 한 칸씩 앞으로 당김
             if(sc.next().equals("remove"))
-                calculator.setResult(0);
+                calculator.removeResult();
 
             System.out.println("저장된 연산결과를 조회하시겠습니까? (inquiry 입력 시 조회)");
 

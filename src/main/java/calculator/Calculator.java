@@ -22,8 +22,8 @@ public class Calculator{
         resultArr.add(result);
     }
 
-    public void setResult(int idx){
-        resultArr.remove(idx);
+    public void removeResult(){
+        resultArr.remove(0);
     }
 
     public double calculate(int num1, int num2, char operator) throws Exception {
