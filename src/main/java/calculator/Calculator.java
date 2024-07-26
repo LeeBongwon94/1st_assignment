@@ -7,11 +7,12 @@ public class Calculator{
     /* 연산 결과를 저장하는 컬렉션 타입 필드 선언 및 생성 */
     // Double 값을 저장하는 ArrayList 생성
     private ArrayList<Double> resultArr = new ArrayList<>();
-    String msg; // 오류 메시지 전달하기 위한 매개변수
     double result;
 
     // 생성자, 생략해도 컴파일러가 알아서해줌
-    public Calculator(){}
+    public Calculator(ArrayList<Double> resultArr){
+        this.resultArr = resultArr;
+    }
 
     // getter, setter
     public List<Double> getResult(){
@@ -34,6 +35,8 @@ public class Calculator{
     }
 
     public double calculate(int num1, int num2, char operator) throws Exception {
+        String msg; // 오류 메시지 전달하기 위한 매개변수
+
         switch (operator) {
             case '+':
                 result = (double)(num1 + num2);

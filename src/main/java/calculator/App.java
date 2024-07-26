@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class App extends Exception{
     public static void main(String[] args) {
-        Calculator calculator = new Calculator();
+        Calculator calculator = new Calculator(new ArrayList<>());
         Scanner sc = new Scanner(System.in);
 
         // 마지막에 "exit"를 쓰기전까지 무한루프
