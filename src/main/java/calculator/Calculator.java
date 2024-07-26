@@ -1,29 +1,46 @@
 package calculator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Calculator{
     /* 연산 결과를 저장하는 컬렉션 타입 필드 선언 및 생성 */
     // Double 값을 저장하는 ArrayList 생성
-    ArrayList<Double> resultArr = new ArrayList<>();
+    private ArrayList<Double> resultArr = new ArrayList<>();
     String msg; // 오류 메시지 전달하기 위한 매개변수
     double result;
 
-    public double calculate(int num1, int num2, String operator) throws Exception {
+    // 생성자, 생략해도 컴파일러가 알아서해줌
+    public Calculator(){}
+
+    // getter, setter
+    public List<Double> getResult(){
+        return this.resultArr;
+    }
+
+    public void setResult(){
+        resultArr.add(result);
+    }
+
+    public void setResult(int idx){
+        resultArr.remove(idx);
+    }
+
+    public double calculate(int num1, int num2, char operator) throws Exception {
         switch (operator) {
-            case "+":
+            case '+':
                 result = (double)(num1 + num2);
                 break;
 
-            case "-":
+            case '-':
                 result = (double)(num1 - num2);
                 break;
 
-            case "*":
+            case '*':
                 result = (double)(num1 * num2);
                 break;
 
-            case "/":
+            case '/':
                 if(num2 == 0){
                     msg = "분모는 0이 될 수 없습니다. 분모";
                     throw new BadInsertValueException(msg);
@@ -39,7 +56,7 @@ public class Calculator{
 
         // 결과값 리스트에 이번 연산결과 추가
         // 예외처리로 흐르면 throw 뒤의 로직 건너뜀
-        resultArr.add(result);
+        setResult();
 
         return result;
     }
