@@ -43,6 +43,14 @@ public class ArithmeticCalculator extends Calculator {
                 result = new DivideOperator().operate(num1, num2);
                 break;
 
+            case '%':
+                if(num2 == 0){
+                    msg = "분모는 0이 될 수 없습니다. 분모";
+                    throw new BadInsertValueException(msg);
+                }
+                result = new ModOperator().operate(num1, num2);
+                break;
+
             default:
                 // 사칙연산(+, -, *, /) 를 제외한 다른 문자가 입력되면 실행
                 msg = "사칙연산 기호";
