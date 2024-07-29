@@ -1,11 +1,13 @@
 package calculator;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class App extends Exception{
     public static void main(String[] args) {
-        Calculator calculator = new Calculator(new ArrayList<>(), new ArrayList<>());
+        ArithmeticCalculator arithmeticCalculator = new ArithmeticCalculator(new ArrayList<>());
+        CircleCalculator circleCalculator = new CircleCalculator(new ArrayList<>());
         Scanner sc = new Scanner(System.in);
 
         // 마지막에 "exit"를 쓰기전까지 무한루프
@@ -16,7 +18,13 @@ public class App extends Exception{
 
             while(repeat){
                 System.out.println("사칙연산을 진행하시려면 0, 원의 넓이를 구하시려면 1을 눌러주세요");
-                flag = sc.nextInt();
+
+                try{
+                    flag = sc.nextInt();
+                } catch (Exception e){
+                    e.printStackTrace();
+                    break;
+                }
 
                 switch(flag) {
                     case 0:
@@ -31,7 +39,7 @@ public class App extends Exception{
                         char operator = sc.next().charAt(0);
 
                         try {
-                            calculator.calculate(num1, num2, operator);
+                            arithmeticCalculator.calculate(num1, num2, operator);
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
@@ -39,23 +47,23 @@ public class App extends Exception{
                         System.out.println("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력 시 삭제)");
                         // "remove" 입력 시 가장 먼저 등록된 데이터가 사라지고 한 칸씩 앞으로 당김
                         if (sc.next().equals("remove"))
-                            calculator.removeResult();
+                            arithmeticCalculator.removeResult(0);
 
                         System.out.println("저장된 모든 연산결과를 조회하시겠습니까? (inquiry 입력 시 조회)");
                         // "inquiry" 입력 시 모든 데이터 조회
                         if (sc.next().equals("inquiry"))
-                            calculator.inquiryResults();
+                            arithmeticCalculator.inquiryResults();
 
                         repeat = false; // 연산 타입 정상 선택
                         break;
                     case 1:
                         System.out.println("반지름을 입력해주세요.");
-                        calculator.calculateCircleArea(sc.nextDouble());
+                        circleCalculator.calculateCircleArea(sc.nextDouble());
 
                         System.out.println("저장된 모든 원이 넓이를 조회하시겠습니까? (inquiry 입력 시 조회)");
                         // "inquiry" 입력 시 모든 데이터 조회
                         if (sc.next().equals("inquiry"))
-                            calculator.inquiryAreas();
+                            circleCalculator.inquiryResults();
 
                         repeat = false; // 연산 타입 정상 선택
                         break;
