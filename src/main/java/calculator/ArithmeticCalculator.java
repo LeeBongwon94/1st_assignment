@@ -24,15 +24,15 @@ public class ArithmeticCalculator extends Calculator {
 
         switch (operator) {
             case '+':
-                result = (double)(num1 + num2);
+                result = new AddOperator().operate(num1, num2);
                 break;
 
             case '-':
-                result = (double)(num1 - num2);
+                result = new SubstractOperator().operate(num1, num2);
                 break;
 
             case '*':
-                result = (double)(num1 * num2);
+                result = new MultiplyOperator().operate(num1, num2);
                 break;
 
             case '/':
@@ -40,7 +40,7 @@ public class ArithmeticCalculator extends Calculator {
                     msg = "분모는 0이 될 수 없습니다. 분모";
                     throw new BadInsertValueException(msg);
                 }
-                result = (double)(num1 / num2);
+                result = new DivideOperator().operate(num1, num2);
                 break;
 
             default:
